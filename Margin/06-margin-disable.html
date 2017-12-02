@@ -1,0 +1,87 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>06-外边距失效情况</title>
+    <style>
+        /* 
+            box1：inline水平元素垂直外边距无效模型
+            无效化前提：
+                a 非替换元素，
+                b 正常书写模式（正常流）
+            
+        */
+        .box1 { width: 100px; height: 100px; background: aqua; }
+        .box1 span { margin: 50px; background: darkblue; }
+
+        /* 
+            box2：margin重叠引起的失效情况模型（在03有详细解释 ）
+            子元素比父元素的垂直外边距小，被合并重叠，当其比20大，父元素的垂直边距被覆盖
+        */
+        .box2 { width: 100px; height: 100px; background: saddlebrown; margin: 20px; }
+        .box2 div { margin: 10px; background: sandybrown; height: 40px; }
+
+        /*  
+            box3：display为table-cell/table-row时，margin无效模型
+        */
+        .box3 { width: 100px; height: 100px; background: rgb(230, 226, 20); }
+        .box3 .table-cell { display: table-cell; margin: 10px; background: rgb(98, 116, 20); height: 40px; }
+
+        /*  
+            box4：绝对定位下非定位方位的margin值“无效”模型
+            给盒子设定左边，没有设定右边，那么有外边距无效，因为流向是上左，也就是说跟相邻元素无关
+        */
+        .box4 { position: relative; width: 600px; height: 300px; background: rgb(175, 20, 142); }
+        .box4 img { position: absolute; right: 60px; margin-left: 1000px; }
+
+        /*  
+            box5：鞭长莫及导致margin无效模型
+            浮动破环布局，不在正常文档流中，不够大时，后面的元素没有效果，这里的121像素之后才起效果是因为图片121像素
+        */
+        .box5 { background-color: wheat; }
+        .box5 img { float: left; }
+        .box5 div { overflow: hidden; margin-left: 121px; background-color: saddlebrown; }
+
+        /*  
+            box6：内联特性导致的margin无效，margin负值小到一定程度后失效模型
+            内联元素/内联块状是基线（X下边缘）对齐，文字不能跑出盒子上边缘，所以有负值上限
+            到达-104不再上升
+        */
+        .box6 { background-color: rgb(150, 28, 187); height: 100px; }
+        .box6 img { margin-top: -104px; }
+        
+        /*  
+            box7：
+        */
+    </style>
+</head>
+<body>
+    <div class="box1">
+        <span>一个区域块</span>
+    </div>
+
+    <div class="box2">
+        <div></div>
+    </div>
+
+    <div class="box3">
+        <!-- 字母不换行 这里就不会平分单元格 -->
+        <span class="table-cell">spanspan元素</span>
+        <div class="table-cell">div元素</div>
+    </div>
+
+    <div class="box4">
+        <img src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2273750325,1315440083&fm=58&u_exp_0=1706716710,982134673&fm_exp_0=86&bpow=454&bpoh=450" alt="">
+    </div>
+
+    <div class="box5">
+        <img src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2273750325,1315440083&fm=58&u_exp_0=1706716710,982134673&fm_exp_0=86&bpow=454&bpoh=450" alt="">
+        <div>这里有一些文字。。</div>
+    </div>
+
+    <div class="box6">
+        <img src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2273750325,1315440083&fm=58&u_exp_0=1706716710,982134673&fm_exp_0=86&bpow=454&bpoh=450" alt="">x
+    </div>
+</body>
+</html>

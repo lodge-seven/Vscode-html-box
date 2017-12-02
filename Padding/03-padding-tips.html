@@ -1,0 +1,71 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>03-内联元素的小提示们</title>
+    <style>
+        div { width: 500px; height: 500px; background-color: rosybrown; }
+        /* 
+            解决ie7按钮过长：overflow:visible 
+            火狐下多几个像素：button::-moz-focus-inner { padding: 0; }
+        */
+        .box1 button { padding: 0; overflow: visible; }
+        .box1 button::-moz-focus-inner { padding: 0; }
+
+        .box2 label { display: inline-block; line-height: 20px; padding: 10px; }
+
+        /* 
+            用内边距把盒子撑开后，使用background-clip: content-box 背景只留下内容的背景而没有内边距的背景 
+            currentColor是一个属性值，css3样式，为当前字体颜色，可运用于简化颜色变化
+            相关currentColor例子：http://www.zhangxinxu.com/wordpress/2014/10/currentcolor-css3-powerful-css-keyword/
+            图标类：http://www.zhangxinxu.com/wordpress/2014/04/css3-icon-%e5%9b%be%e6%a0%87%e7%94%9f%e6%88%90%e6%8a%80%e6%9c%af/
+        */
+        .box3 { width: 150px; height: 30px; padding: 15px 0; border-top: 30px solid; border-bottom: 30px solid; background-color: currentColor; background-clip: content-box;}
+        .box4 { width: 150px; height: 150px; padding: 10px; border: 10px solid; border-radius: 50%; background-color: currentColor; background-clip: content-box; }
+        
+        /* 
+            currentcolor对简化代码的运用
+        */
+        .box5 { width: 300px; height: 300px; border: 1px solid; color: #000; }
+        /* .ico-repeat::before { content: ''; width: 3px; height: 3px; background-color: currentColor; box-shadow: 0 5px currentColor, 5px 0 currentColor, 5px 5px currentColor, 10px 0 currentColor, 0 10px currentColor, 5px 10px currentColor, 10px 5px currentColor, 10px 10px currentColor; top: 5px; left: 3px; } */
+        /* .ico-repeat::before { width: 3px; height: 3px; background-color: currentColor; box-shadow: 0 5px currentColor, 5px 0 currentColor, 5px 5px currentColor, 10px 0 currentColor, 0 10px currentColor, 5px 10px currentColor, 10px 5px currentColor, 10px 10px currentColor; top: 5px; left: 3px; } */
+        /* css3 */
+        .ico-repeat { background-position: 0 -20px; }
+        a:hover .ico-repeat, a.ico-repeat:hover { background-position: -20px -20px; }
+        /* css3 */
+        .ico-repeat::before { width: 3px; height: 3px; background-color: currentColor; box-shadow: 0 5px currentColor, 5px 0 currentColor, 5px 5px currentColor, 10px 0 currentColor, 0 10px currentColor, 5px 10px currentColor, 10px 5px currentColor, 10px 10px currentColor; top: 5px; left: 3px; }
+
+    </style>
+</head>
+<body>
+    <!-- 
+        1 ol/li列表最好左边距22-25像素，默认值是px不是em，所以出现文字越小，间隔越大
+        2 表单中input，textarea，botton也是各个浏览器的支持不同
+        最好是去掉padding
+     -->
+    <div class="box1">
+        <button>小按钮啊啊啊</button>
+    </div>
+
+    <!-- 
+        给按钮居中或者一个padding提升高度：
+        1 最好使用a标签模拟按钮
+        2 用到表单提交可以使用label样式，把button定位到其他地方再给层级-1
+        （兼容IE7...）
+
+    -->
+    <div class="box2">
+        <button id='btn'></button>
+        <label for="btn">小按钮啊啊啊</label>
+    </div>
+
+    <!-- 内有内容小组件 -->
+    <p class="box3"></p>
+    <!-- 小圆圈 -->
+    <p class="box4"></p>
+    <!-- 平铺 -->
+    <p><a href="javascript:" class="ico-a"><i class="ico ico-repeat"></i>平铺</a></p>
+    <!-- <a href="javascript:" class="ico-a"><i class="ico ico-repeat"></i>平铺</a> -->
+</body>
+</html>

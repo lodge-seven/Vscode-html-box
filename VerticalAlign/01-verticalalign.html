@@ -1,0 +1,37 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>01-垂直对齐</title>
+    <style>
+        /*  
+            垂直居中认识
+                1 支持类型
+                线类（基线，顶线，中线，底线）
+                文本类（文本上边缘，文本下边缘）
+                上标下标类
+                数值/百分比类
+        */
+        /*  
+            box1：正常状态下垂直对齐测试模型
+            给父级设置垂直对齐是没有效果的
+            ** 给图片或者文字一个垂直对齐，文字的位置会移动
+            当给图片一个垂直对齐时，图片位置不变，而文字变化：
+                ** 给负值时，文字向上移（基线向下时，文字被抬高）
+                ** 给正值时，文字向下移（基线向上时，文字被顶下来）
+
+        */
+        .box1 { height: 200px; background: rgb(72, 128, 91); vertical-align: -1px; }
+        .box1 img { vertical-align: -10px; }
+        .box1 span { vertical-align: -20px; }
+    </style>
+
+</head>
+<body>
+    <div class="box1">
+        <span>匿名内联盒子+一个图片</span> 
+        <img src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2273750325,1315440083&fm=58&u_exp_0=1706716710,982134673&fm_exp_0=86&bpow=454&bpoh=450" alt="">
+    </div>
+</body>
+</html>

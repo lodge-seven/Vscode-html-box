@@ -1,0 +1,49 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>02-溢出与滚动条</title>
+    <style>
+        /*  
+            滚动条出现的条件
+                1 overflow auto/scroll -html/ textarea
+                2 文字超出文本域的高度（数字和字母默认不换行，会溢出）
+            
+            滚动条出自html而不是body，为0.5em
+            ie 67类似overflow-y:scroll;
+            其他 overflow:auto
+
+            去掉页面自动 html { overflow: hidden; }
+
+            滚动条高度计算（js）
+            chrome：document.body.scrollTop
+            其他：document.documentElement.scrollTop
+            两者不会同时存在：var st = document.body.scrollTop || document.documentElement.scrollTop
+            ** 滑动条占用容器的可用宽高
+        */
+
+        /*  
+            box1：溢出下的底层内边距缺失模型
+            只有chrome浏览器不会
+        */
+        .box1 { width: 100px; height:20px; padding: 100px 0; overflow: auto; }
+
+        /*  
+            box2：水平居中跳动问题模型
+            ** 解决方法 
+                a html { overflow-y: scroll} 
+                b .container { padding-left: calc(100vw - 100%)} 
+        */
+        .box2 { width: 1150px; margin: 0 auto; background: saddlebrown; height: 10px; }
+    </style>
+</head>
+<body>
+    <div class="box1">
+        <img src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2273750325,1315440083&fm=58&u_exp_0=1706716710,982134673&fm_exp_0=86&bpow=454&bpoh=450" alt="">
+    </div>
+
+    <div class="box2">
+    </div>
+</body>
+</html>

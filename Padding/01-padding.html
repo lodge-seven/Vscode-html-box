@@ -1,0 +1,61 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    <title>01-内边距</title>
+    <style>
+        /*  词间范围，字与字之间的属性 word-wrap
+            normal：默认是顶开盒子边界，即不会换行
+            break-word：不会超出盒子，词内换行
+
+            **中文是要换行的
+            **背景色只影响内容不影响边框以外
+            box-sizing 盒子的尺寸
+            border-box 内边距影响内容大小而不影响占据尺寸（整体大小）
+            当内边距达到占据大小上限时，撑开
+         */
+        .box1 { width: 15cm; word-wrap: break-word; box-sizing: border-box; height: 5cm; background-color: seagreen; border: 10px solid black; border-top: none; }
+        /*
+            给父级高度：子级段落元素有外边距，当没有给父级高度由内容撑开时，最后一个段落元素外边距让父级有外边距
+         */
+        .box2 { background-color: wheat; height: 200px; }
+        /* .box2 .inline1 { padding: 4cm; background-color: lavender; } */
+        .box2 .inline2 { background-color: firebrick; }
+
+        .box3 { background-color: darkblue; }
+        .box3 span { padding: 16px 6px 1px; margin-left: 12px; border-left: 2px solid; font-size: 0;}
+    </style>
+</head>
+<body>
+    <!-- 
+        块级元素：padding上下左右都撑开盒子
+        设置属性：box-sizing
+            a当内边距没有超出盒子的范围，内容变小，不会撑开盒子
+            b让内边距超出盒子范围，内容是其中字体宽度，整体变大
+     -->
+    <!-- 发现有意思的一点：数字字母是不换行的 中文是会换行的 -->
+    <!-- 所以要使用一个属性让其换行，因为css中对此有默认值 -->
+    <!-- word-wrap:normal -->
+    <div class='box1'>1.块级元素</div>
+
+    <!-- 
+        内联元素：padding左右撑开盒子，上下不撑开
+        **会占据网页空间，遮挡内容同层级中前面的内容，后面无影响
+     -->
+    <div class='box2'>
+        2.内联元素
+        <p>内联元素1<span>内联元素2</span>内联元素3</p>
+        <p>内联元素4<span class='inline1'>内联元素5</span>内联元素6</p>
+        <p>内联元素7<span class='inline2'>内联元素8</span>内联元素9</p>
+    </div>
+    
+    <!-- 
+        利用内联元素的padding特性去做分割线
+        没有内容由内边距撑开盒子，但是底部是有上限的 对齐文字底边        
+     -->
+    <div class="box3">
+        3.高度可控制的分割线
+        <p>退出<span></span>登陆</p>
+    </div>
+</body>
+</html>

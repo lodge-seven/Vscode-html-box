@@ -1,0 +1,77 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>05-外边距的负值</title>
+    <style>
+        /*  
+            box1：margin负值下两端对齐模型
+            要求是列表之间有空隙20，第三个应该没有空隙
+            1 为了去掉它用(1200-40)/3=386.66设定宽度（但这样会掉下来，因为第三个有外边距，盒子没有那么宽，就掉下来了）
+            2 父级减去外边距20 （**这样做可以使其子级外边距重叠为20-20的外边距）
+        */
+        .box1 { width: 1200px; margin: auto; background: orange; }
+        .box1 .ul { overflow: hidden; margin-right: -20px; }
+        .box1 .li { /*width: 380px;*/width: 386.66px; height: 300px; margin-right: 20px; background: green; float: left; }
+
+        /* 
+            box2：margin负值下的等高布局模型
+            ** 背景色虽然不能在margin里显示，但是可以在padding里显示
+            ** 自适应不能给父级高度，给了高度会没有等高效果，必须靠子级撑开
+            ** 子级下内边距影响父级高度，撑开父级
+            ** 只有子级比父级大到装不下，才能溢出（要求父级有宽高）
+            ** 因为外边距增大，父级也会增加，所以正值不会引起溢出
+            ** 负值使父级高度减小，子级内容大于父级高度，所以可以溢出
+            ** 子级下外边距影响子级占据空间高度，为负值时，没有变化（已经溢出）
+            ** 外边距溢出隐藏
+            1 给两个盒子非常大的底部内边距
+            2 给两个盒子非常大的底部外边距负值（负值把占据空间缩小，但这时没有任何效果，子元素撑开的内容不变，已经溢出）
+            3 溢出部分隐藏
+
+        */
+        .box2 { overflow: hidden; resize: vertical; margin-left: 10px; }
+        .box2 .child-green,
+        .box2 .child-orange { margin-bottom: -600px; padding-bottom: 600px; float: left; width: 500px; }
+        .box2 .child-green { background: green; }
+        .box2 .child-orange { background: orange; }
+
+        /*  
+            box3：margin负值下的两栏自适应布局模型
+            这样的好处符合文档流的渲染顺序
+        */
+        .box3 { background: aliceblue; }
+        .box3 .words { float: left; width: 100%; }
+        .box3 p { margin-right: 170px; }
+        .box3 img { width: 150px; float: left; margin-left: -150px; }
+    </style>
+</head>
+<body>
+    <div class="box1">
+        <div class="ul">
+            <div class="li">列表1</div>
+            <div class="li">列表2</div>
+            <div class="li">列表3</div>
+        </div>
+    </div>
+
+    <div class="box2">
+        <div class="child-green">
+            <div>左边1</div>
+            <div>左边1</div>
+            <div>左边1</div>
+            <div>左边1</div>
+        </div>
+        <div class="child-orange">
+            <div>右边1</div>
+        </div>
+    </div>
+
+    <div class="box3">
+        <div class="words">
+            <p>box3：margin负值下的两栏自适应布局模型</p>
+        </div>
+        <img src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2273750325,1315440083&fm=58&u_exp_0=1706716710,982134673&fm_exp_0=86&bpow=454&bpoh=450" alt="">
+    </div>
+</body>
+</html>

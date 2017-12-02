@@ -1,0 +1,39 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>02-特殊的内边距</title>
+    <style>
+        .box1 { width: 50px; height: 60px; }
+        .box1 p { padding: 50%; background-color: saddlebrown; }
+
+        .box2 { width: 600px;}
+        /*  内联有一个默认字体大小 当里面无文字内容也不会是正方形 所以给字体大小为0 宽度太高显示不完整，但确实是正方形 
+            父级的宽度是这个正方形的中线
+            当内联元素垂直方向有padding时，幽灵空白节点出现
+        */
+        .box2 span { font-size: 0; padding: 50%; background-color: springgreen; }
+    </style>
+</head>
+<body>
+    <!--
+        
+        1 块级和内联元素的padding不支持负值
+        2 块级元素padding的百分比值
+            实现正方形，百分比按宽度计算，父级可以没有高度，盒子内边距与父级的盒模型宽度一致
+            padding：50%
+            这个可以用来做自适应型的正方形 里面要是有内容用定位 vh有些手机不支持 这个完美解决高度与宽度一致的问题
+     -->
+    <div class="box1"><p></p></div>
+
+    <!-- 
+        3 内联元素百分比值
+            a 同样相对于宽度计算
+            b 默认的高度宽度细节有差异（font-size）
+            c padding断行 文字掉下来 掉下的文字也有内边距
+        
+    -->
+    <div class="box2"><span>内有文字若干</span></div>
+</body>
+</html>

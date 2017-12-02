@@ -1,0 +1,59 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>03-外边距的覆盖范围(重叠)</title>
+    <style>
+        /*  
+            margin重叠3种情况
+            1 相邻的兄弟元素
+            2 父级与最后一个子级
+            3 空的block元素
+            ** 内联元素不会引起外边距重叠，内联垂直边距与其盒子的垂直边距不会合并，内联元素垂直边距不起效
+        */
+        .box1 { width: 200px; height: 200px; background: rgb(84, 113, 133) }
+        .box1 p { line-height: 2em; margin: 1em 0; background: royalblue; }
+
+        /* 
+            子元素设置上外边距与父元素设置上边距与同事设置上边距是一样的 
+            这里都设置了10像素 但是并不是30
+            原因：共用一个外边距
+
+            父子重叠的其他条件
+            1 父元素非块状格式化上下文（格式化用overflow：hidden）
+            2 父元素没有内边距（上下）
+            3 父元素没有边框（上下）
+            4 相邻父子之间没有inline元素
+            ** margin-bottom还有一个条件：没有height，min/max-height
+        */
+        .box2 { width: 200px; height: 200px; background: rgb(44, 120, 187); margin-top: 10px; }
+        /* overflow:hidden 把子级的10像素向内撑开 不改变占据空间，.father元素自己和它的父级选最大向外撑开 */
+        .box2 .father { background: rebeccapurple; margin-top: 60px; overflow: hidden }
+        .box2 .son { margin-top: 80px; }
+
+        /*  
+            空元素的边距也会重叠
+            里面加一个空格或者行内就不会
+        */
+        .box3 { width: 200px; height: 200px; background: darkblue; margin: 2em; }
+        .box3 div { margin: 2em; }
+    </style>
+</head>
+<body>
+    <div class="box1">
+        <p>第一行</p>
+        <p>第二行</p>
+    </div>
+
+    <div class="box2">
+        <div class="father">
+            <div class="son">子元素</div>
+        </div>
+    </div>
+
+    <div class="box3">
+        <div>12</div>
+    </div>
+</body>
+</html>

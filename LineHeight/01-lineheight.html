@@ -1,0 +1,27 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>01-认识行高</title>
+    <style>
+        /*  
+            line-height
+            两行文字基线之间的距离
+            baseline：基线，写英文字母排列用
+
+            box1：测试基线距离模型
+            x的底部为基线，上下x底部之间的距离是行高，0时重合
+            ** 不同字体基线位置不一样
+
+            真正垂直居中必须文字高度0
+        */
+        .box1 { word-wrap: break-word; width: 20px; line-height: 10px; }
+    </style>
+</head>
+<body>
+    <div class="box1">
+        adfgxxxxxxxxxxxxxxx
+    </div>
+</body>
+</html>

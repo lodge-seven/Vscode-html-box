@@ -1,0 +1,44 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>01-溢出相关</title>
+    <style>
+        /*  
+            **溢出效果在父级
+            overflow基本属性
+                1 visible(默认)
+                超出外部盒子的部分溢出，对于盒子同级的元素无影响，左上超出覆盖同级，右下超出被同级覆盖
+                2 hidden（隐藏）
+                3 auto（超出出现滚动条）
+                4 scroll（滚动条）
+                5 inherit（兼容性差）
+                6 overflow-x/overflow-y:hidden（一边隐藏，但是另一边是visible时，会变成auto）
+            兼容性：都不同
+        */
+        /*  
+            box1：宽度设定机制模型
+            设定超出部分出现滚动条
+            ** ie7宽度设定与其他浏览器不同，已知盒子的宽度比自身小时出现滚动条，在这里自身的宽度是400px，父级元素不是400px，是400-滑动条的宽度，想解决就去掉100%
+        */
+        .box1 { width: 400px; height: 100px; overflow: auto; }
+        .box1 .content { width: 100%; height: 200px; background: saddlebrown; }
+
+        /*  
+            box2：ie7下按钮内容越多内边距越大的解决模型
+        */
+        .box2 { width: 400px; height: 100px; background: sandybrown; }
+        .box2 button { overflow: visible; }
+    </style>
+</head>
+<body>
+    <div class="box1">
+        <div class="content"></div>
+    </div>
+
+    <div class="box2">
+        <button>111</button><button>111111111111111111</button>
+    </div>
+</body>
+</html>

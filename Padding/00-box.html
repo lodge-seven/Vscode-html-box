@@ -1,0 +1,28 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>00-盒子的属性</title>
+    <style>
+        /* 去网页的默认值 浏览器各自默认值不一致 */
+        div, p { margin: 0; padding: 0; }
+        div { height: 40px; width: 20px; background-color: cadetblue; }
+        p { height: 100px; width: 300px;  background-color: lavender; }
+        
+        div.mode1 { border: 1px solid silver; }
+        .mode1 p { border: 1px solid aqua; }
+        
+    </style>
+</head>
+<body>
+    <!-- 
+        1 父子级盒子模型
+            层级不同，允许重合，有边界线，盒子大小撑开2像素 
+            与父级相同层级关系的盒子不受子级高度影响，意味着子级的高度超出父级的部分会被父级的兄弟级覆盖~
+            子级的文本内容也会超出父级
+     -->
+    <div class='mode1' ><p></p></div>
+    <div class='mode1' ><p></p></div>
+</body>
+</html>

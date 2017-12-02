@@ -1,0 +1,38 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>07-margin-start用法</title>
+    <style>
+        /* 
+            box1：margin-start模型
+            不改变流向时相当于左边距
+            改变流向就是流开始的方向，这里垂直方向上100px
+            只有webkit内核支持，火狐都不支持
+        */
+        .box1 { width: 500px; height: 200px; background: antiquewhite; }
+        .box1 img { margin-left: 100px; -webkit-margin-start: 100px; -moz-margin-start: 100px; marker-start: 100px; writing-mode: vertical-lr; }
+
+        /* 
+            box2：margin-collapse 重叠模型（只有webkit可以）
+            默认上下重叠
+            -webkit-margin-collapse: discard 会取消两者的间距
+            separate 会分割两者之间的外边距 这里变为80px
+        */
+        .box2 { width: 500px; height: 400px; background: rgb(19, 12, 82); }
+        .box2 .con1 { margin: 30px; height: 100px; background: rgb(40, 228, 40); -webkit-margin-collapse: separate; }
+        .box2 .con2 { margin: 50px; height: 100px; background: rgb(5, 48, 5); }
+    </style>
+</head>
+<body>
+    <div class="box1">
+        <img src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2273750325,1315440083&fm=58&u_exp_0=1706716710,982134673&fm_exp_0=86&bpow=454&bpoh=450" alt="">x
+    </div>
+
+    <div class="box2">
+        <div class="con1"></div>
+        <div class="con2"></div>
+    </div>
+</body>
+</html>

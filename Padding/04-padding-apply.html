@@ -1,0 +1,36 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>04-内边距的应用</title>
+    <style>
+        /* 一边多了 另一边也会多 */
+        .box1 { overflow: hidden; resize: vertical; }
+        .child-orange,
+        .child-green { margin-bottom: -600px; padding-bottom: 600px; }
+        .child-green { float: left; background-color: green; }
+        .child-orange { float: left; background-color: orange; }
+        /* 文字自适应 窗体减小 文字宽度也减小 图片不变 */
+        .box2 .pbox { padding-left: 120px; }
+        .box2 img { float: left; margin-left: -120px; }
+    </style>
+</head>
+<body>
+    <!-- 配合外边距做等高布局 这个的结构不对 -->
+    <div class="box1">
+        <span class="child-orange">你好</span>
+        <span class="child-orange">你好</span>
+        <span class="child-orange">你好</span>
+        <span class="child-green">你好</span>
+    </div>
+
+    <!-- padding在容器上 -->
+    <div class="box2">
+        <div class="pbox">
+            <img src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2273750325,1315440083&fm=58&u_exp_0=1706716710,982134673&fm_exp_0=86&bpow=454&bpoh=450" alt="">
+            一段文字啊哈哈哈
+        </div>
+    </div>
+</body>
+</html>

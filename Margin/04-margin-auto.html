@@ -1,0 +1,73 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>04-关于margin-auto</title>
+    <style>
+        /*  
+            box1: 自动填充模型
+            子级没有宽度，宽度也会自动填满容器
+            如果给予宽度，自动填充特性就会被覆盖
+            高度不会自动填充，子级没有高度时，高度为0
+        */
+        .box1 { width: 100px; height: 100px; }
+        .box1 div { background: antiquewhite; width: 40px; }
+
+        /*  
+            box2：距离右边特定宽度模型
+            1 只设定margin-right不会有效果
+            2 在其基础上设置margin-left: auto（一边定值那另一边是剩余空间）
+            ** 左右外边距都是auto，剩余空间平均分配
+        */
+        .box2 { width: 100px; height: 100px; background: antiquewhite; margin-right: 10px; margin-left: auto; }
+        .box2 div { width: 40px; }
+
+        /*
+            box3：图片/内联元素自动填充模型
+            ** 内联元素变成块状元素 
+        */
+        .box3 { width: 200px; height: 100px; background: darkblue; }
+        .box3 img { display: block; margin: auto; }
+
+        /*  
+            box4：垂直方向自动填充模型
+            writing-mode: vertical-lr (css3)
+            **  改变文档流的方向为垂直方向，那么margin-top/bottom具有自动填充的功能
+
+        */
+        .box4 { width: 200px; height: 200px; background: rgb(37, 168, 48); writing-mode: vertical-lr; }
+        .box4 img { display: block; margin: auto; }
+
+        /*  
+            box5：绝对定位与外边距实现水平垂直居中模型
+            父级相对，子级绝对并且上下左右都为0，这样就填充整个子级
+            这时候给子级一个宽高，可以打破这个填充，再用margin：auto分配剩余空间
+        */
+
+        .box5 { position: relative; height: 200px; width: 200px; background: saddlebrown; }
+        .box5 div { position: absolute; background: rebeccapurple; top: 0; right: 0; bottom: 0; left: 0; width: 10px; height: 20px; margin: auto; }
+    </style>
+</head>
+<body>
+    <div class="box1">
+        <div></div>
+    </div>
+
+    <div class="box2">
+        <div></div>
+    </div>
+
+    <div class="box3">
+        <img src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2273750325,1315440083&fm=58&u_exp_0=1706716710,982134673&fm_exp_0=86&bpow=454&bpoh=450" alt="">
+    </div>
+
+    <div class="box4">
+        <img src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2273750325,1315440083&fm=58&u_exp_0=1706716710,982134673&fm_exp_0=86&bpow=454&bpoh=450" alt="">
+    </div>
+
+    <div class="box5">
+        <div></div>
+    </div>
+</body>
+</html>

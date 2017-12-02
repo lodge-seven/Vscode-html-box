@@ -1,0 +1,31 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>03-垂直外边距与行高</title>
+    <style>
+        /*  
+            对于内联元素，行高与垂直对齐是一定有的
+        */
+        /*  
+            box1：常见图片内联模型
+            不知道为什么...没产生行高,这里就加文字模拟产生空白节点时图片位置
+            默认样式：vertical-align：baseline
+
+            解决方式（基线）：
+            1 改变对齐方式
+            2 行高或字体为0，基线自然上移
+            3 转换为块级元素，不存在对齐
+        */
+        .box1 { text-align: center; background: wheat; }
+        .box1 img { vertical-align: baseline; }
+    </style>
+
+</head>
+<body>
+    <p class="box1"> 
+        <img src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2273750325,1315440083&fm=58&u_exp_0=1706716710,982134673&fm_exp_0=86&bpow=454&bpoh=450" alt="">
+    </p>
+</body>
+</html>

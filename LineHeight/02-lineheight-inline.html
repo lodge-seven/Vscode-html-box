@@ -1,0 +1,65 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>02-行高与内联盒子模型</title>
+    <style>
+        /*  
+            内联元素样式表现都与行内框盒子模型有关，如浮动的图文环绕
+            内联元素的高度表现机制与原理：
+
+        */
+        /*  
+            box1：行内框盒子模型
+            box1包含4种盒子
+                1 内容区域（content area）围绕文字不可见区，大小与font-size有关
+                2 内联盒子（inline boxes）内容之间呈现一条显示（不为一块/换行），像span，a，em等是内联盒子，无标签包裹的为：匿名内联盒子
+                3 行框盒子（line boxes）每一行都是行框盒子，由内联盒子组成
+                4 包含盒子（containing box）由一行行的行框盒子组成
+        */
+        .box1 { background-color: wheat; }
+        .box1 em { background-color:salmon; }
+        
+        /* 
+            box2：测试文字高度模型（由文字大小还是行高决定？）
+            con1没有行高，字体被撑开成了垂直内边距，很有意思
+        */
+        .box2 .con1 { font-size: 36px; line-height: 0; border: 1px solid #333; background: sandybrown; }
+        .box2 .con2 { font-size: 0; line-height: 36px; border: 1px solid rgb(214, 60, 60); background: rgb(240, 98, 17); }
+
+        /*  
+            box3：多行文本水平垂直居中模型
+
+        */
+        .box3 { display: line-block; line-height: 300px; text-align: center; background: rgb(63, 214, 121);}
+        .box3 .text {  max-width:100%; display: inline-block; line-height: normal; text-align: left; vertical-align: middle; margin: 0;}
+
+        /*  
+            box4：代替高度
+        */
+        .box4 { background: rgb(19, 91, 139); }
+        .box4 .out { display: inline-block; }
+        .box4 .in1 { display: block; height: 36px; background: rgb(177, 139, 112); }
+        .box4 .in2 { display: block; line-height: 36px; background: rgb(235, 158, 86); }
+    </style>
+</head>
+<body>
+    <p class="box1">这是一行普通的文字，这里有个<em>em</em>标签</p>
+    <div class="box2">
+        <p class="con1">你好</p>
+        <p class="con2">你好a</p>
+    </div>
+    <div class="box3">
+       <span class="text">多行文本水平居中实现原理:text-align,vertical-align继承</span>
+    </div>
+    <div class="box4">
+        <span class="out">
+            <span class="in1">高度</span>
+        </span>
+        <span class="out">
+            <span class="in2">行高</span>
+        </span>
+    </div>
+</body>
+</html>

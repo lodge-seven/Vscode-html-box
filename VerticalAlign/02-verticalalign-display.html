@@ -1,0 +1,83 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>02-垂直对齐与角色扮演（显示水平）</title>
+    <style>
+        /*  
+            垂直对齐起作用的前提
+            ** 应用于inline水平和table-cell元素
+                1 inline水平元素：img，span，strong，em...
+                2 inline-block元素：input，button
+                3 table-cell元素：<td>
+            ** 默认状态下，能支持垂直对齐的是：图片，按钮，单元格
+            但有一种属性可以变更元素的显示水平
+
+        */   
+        /*  
+            box1：无效模型1
+            p元素默认是block水平
+        */
+        .box1 { vertical-align: middle; height: 100px; background: rgb(14, 18, 87); }
+
+        /*  
+            box2：有效模型
+            此时文字居图片中部（近似）
+            但是图片并没有在高度的一半位置，这是因为垂直对齐的长度太短了，不够居中
+        */
+        .box2 { background-color: rgb(197, 144, 45); height: 100px; }
+        .box2 img { vertical-align: middle; }
+
+        /*  
+            box3：改变显示水平后垂直对齐失效模型
+            浮动改变其显示水平：变为块级水平
+            定位也一样
+        */
+        .box3 { background: saddlebrown; height: 100px; }
+        .box3 img { vertical-align: middle; float: left; /*position: absolute;*/ }
+
+        /*  
+            box4：单元格属性下图片居中模型
+            这个与box2不同的一点是给父级盒子加了显示水平为单元格，这样实现了居中对齐，对自身实现了垂直居中
+            
+        */
+        .box4 { background: rgb(110, 30, 163); height: 100px; display: table-cell; vertical-align: middle; }
+        .box4 img { vertical-align: middle; }
+
+        /*  
+            box5：文字与图片自适应垂直居中模型
+            不设置成内联块状，会出现文字包容图片，被图片分行
+            ** 问题：应用于inline水平和table-cell元素内部？
+            ** 不起效果请使用行高
+        */
+        .box5 { display: inline-block; background: darkblue; width: 500px; line-height: 300px; vertical-align: middle; }
+        .box5 span { display: inline-block; width: 200px; line-height: normal; vertical-align: middle; }
+        .box5 img { vertical-align: middle; }
+    </style>
+</head>
+<body>
+    <p class="box1">
+        <img src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2273750325,1315440083&fm=58&u_exp_0=1706716710,982134673&fm_exp_0=86&bpow=454&bpoh=450" alt="">
+    </p>
+
+    <p class="box2">
+        一段文字是匿名内联，图片是内联水平
+        <img src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2273750325,1315440083&fm=58&u_exp_0=1706716710,982134673&fm_exp_0=86&bpow=454&bpoh=450" alt="">
+        被居中
+    </p>
+
+    <p class="box3">
+        有影响
+    </p><img src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2273750325,1315440083&fm=58&u_exp_0=1706716710,982134673&fm_exp_0=86&bpow=454&bpoh=450" alt="">
+
+    <p class="box4">
+        单元格<img src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2273750325,1315440083&fm=58&u_exp_0=1706716710,982134673&fm_exp_0=86&bpow=454&bpoh=450" alt="">
+    </p>
+
+    <div class="box5">
+        <span>文字有多少行是我不知道的给个三行爱看不看文字有多少行是我不知道的给个三行爱看不看文字有多少行是我不知道的<br/>呵呵<br/>给个三行爱看不看</span>
+        <img src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2273750325,1315440083&fm=58&u_exp_0=1706716710,982134673&fm_exp_0=86&bpow=454&bpoh=450" alt="">
+    </div>
+</body>
+</html>
