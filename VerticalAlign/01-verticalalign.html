@@ -25,6 +25,18 @@
         .box1 { height: 200px; background: rgb(72, 128, 91); vertical-align: -1px; }
         .box1 img { vertical-align: -10px; }
         .box1 span { vertical-align: -20px; }
+
+        /*  
+            box2：一行内联水平元素中不同行高的效果，配合对齐
+            多行文本在行高那节
+            ^在多行文本中能看到行高带来的影响，一行中行高最高的决定一行的高度，虽然一行中行高不一样，但因为有对齐，会把行高小的撑开
+            ^把其中一个内联元素字体变小，发现行高无变化，但文字位置变小，按照基线对齐
+            ^把一个元素按底边对齐,发现并没有按照字体底边对齐，而是对行高进行底边与底边之间的对齐
+            ^去掉行高，才显示出视觉上的底边对齐哦
+        */
+        .box2 { height: 300px; background: rgb(34, 192, 87); font: 20px/1; }
+        .box2 .text { line-height: 40px; font-size: 10px; background: rgb(62, 116, 218); vertical-align: bottom; }
+        .box2 .text2 { line-height: 60px; background: rgb(76, 135, 211); }
     </style>
 
 </head>
@@ -32,6 +44,13 @@
     <div class="box1">
         <span>匿名内联盒子+一个图片</span> 
         <img src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2273750325,1315440083&fm=58&u_exp_0=1706716710,982134673&fm_exp_0=86&bpow=454&bpoh=450" alt="">
+    </div>
+
+    <div class="box2">
+        嗯可以
+        <span class="text">Xg呵呵</span><span class="text2">X啦啦啦</span>
+        <br/>
+        <span >XXX呵呵呵</span>
     </div>
 </body>
 </html>

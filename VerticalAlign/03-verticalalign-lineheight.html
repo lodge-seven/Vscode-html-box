@@ -10,7 +10,7 @@
         */
         /*  
             box1：常见图片内联模型
-            不知道为什么...没产生行高,这里就加文字模拟产生空白节点时图片位置
+            不知道为什么...没产生行高,这里就加文字模拟产生空白节点时图片位置，有的浏览器厉害了，不会出现底部的空隙哦
             默认样式：vertical-align：baseline
 
             解决方式（基线）：
@@ -19,13 +19,46 @@
             3 转换为块级元素，不存在对齐
         */
         .box1 { text-align: center; background: wheat; }
-        .box1 img { vertical-align: baseline; }
+        /* 兼容ie7-9 */
+        .box1 img { vertical-align: top; }
+
+        /*  
+            box2：图片近似居中
+            ie9之后不起效果哦
+            去掉外边距，下一个模型的影响
+        */
+        .box2 { background-color: darkblue; line-height: 250px; margin: 0; }
+        .box2 img { vertical-align: middle; }
+
+        /*  
+            box3：行高为0时文字的高度
+            此时文字高21，行间距5像素，行间距在顶部，文字区域26像素高，基线在中间。与上面盒子重合
+            选择X来查看，X在中间
+        */
+        .box3 { font-size: 20px; line-height: 0; }
+
+        /*  
+            box4：块级中文字的高度
+        */
+        .box4 { font-size: 60px; width: 100px; background: wheat; line-height: 100px; margin: 0;}
     </style>
 
 </head>
 <body>
-    <p class="box1"> 
+    <p class="box1">
         <img src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2273750325,1315440083&fm=58&u_exp_0=1706716710,982134673&fm_exp_0=86&bpow=454&bpoh=450" alt="">
+    </p>
+
+    <p class="box2">
+        <img src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2273750325,1315440083&fm=58&u_exp_0=1706716710,982134673&fm_exp_0=86&bpow=454&bpoh=450" alt="">
+    </p>
+
+    <span class="box3">
+        nihao,表意对齐AIglX
+    </span>
+
+    <p class="box4">
+        X
     </p>
 </body>
 </html>
