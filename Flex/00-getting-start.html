@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>00-熟悉什么是弹性盒模型</title>
+    <style>
+        body, p{ margin: 0; padding: 0; }
+        /*  
+            flex布局讲解，layout
+            任何水平都可以指定为flex布局，采用flex布局的元素，称为flex容器，它的子元素为容器成员，被叫做项目
+            容器默认存在两根轴，水平为主轴（左边开始，右边结束），垂直为交叉轴（上边开始，下面结束）。
+            默认主轴排列，单个项目占据主轴空间和交叉轴空间
+        */
+        /* 
+            box1：父级盒子设置弹性水平，内部块级水平模型
+            在不设置其余弹性相关属性的情况下，默认是水平排列，子级类似内联盒水平，具有宽高，说近似是因为没有间隔哦
+        */
+        .box1 { display: flex; background-color: aqua; width: 600px; height: 100px; }
+        .box1 .tex { background-color: rgb(178, 255, 127); width: 50px; height: 50px; }
+
+        /*  
+            box2：改变主轴排列方向的弹性盒模型
+            flex-direction：确定主轴方向
+            flex-direction: row | row-reverse | column | column-reverse;
+                a row：水平从左到右排列，顺序自然阅读，且高度由高度确定，行高失效但文字会溢出。
+                b row-reverse：水平从右到左排列，顺序从后至前（类似日本阅读方式），且高度由高度确定，行高失效但文字会溢出。
+                c column：垂直从上到下排列，在父级设置了高度的情况下会溢出，且高度由行高确定，高度失效。
+                d column-reverse：垂直从下到上排列，在父级设置高度的情况下会溢出，且高度由行高确定，高度失效。
+
+            *发现内联水平在弹性盒模型下面会呈现块级水平排版，有宽高，且在没有给高度时会继承父级高度，当没有宽度时是内部内容撑开哦
+            *不管是块级还是内联，都是这样哦，垂直高度失效
+            *层级上来说：
+                在父级上，排版正常，父级的兄弟级自占一行，但是在子级元素溢出的那部分会把父级下面的兄弟级遮盖住，表现出层级在上。（正常流中是会被下级遮盖，因为文档流自左而下）
+                在子级上，父级兄弟级有弹性水平，子级与子级是正常的排版，下面兄弟级的子级把上面父级的子级遮盖。
+        */
+        .box2 { display: flex; flex-direction: column; background-color: rgb(196, 144, 67); width: 500px; height: 100px; }
+        .box2 .tex { background-color: black; width: 50px; height: 50px; line-height: 50px; color: aliceblue; }
+    </style>
+</head>
+<body>
+    <div class="box1">
+        <p class="tex">1</p>
+        <p class="tex">2</p>
+        <p class="tex">3</p>
+        <p class="tex">4</p>
+    </div>
+    
+    <div class="box2">
+        <span class="tex">1</span>
+        <span class="tex">2</span>
+        <span class="tex">3</span>
+        <span class="tex">4</span>
+        <span class="tex">5</span>
+    </div>
+
+</body>
+</html>
