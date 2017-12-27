@@ -1,0 +1,59 @@
+FC:Formatting Contexts
+源于W3C规范，页面中的一块渲染区域，有一套规则，决定了子元素排版，与其他元素的关系，作用。
+
+
+BCF:block formatting contexts
+块状格式化上下文，目前不知道是什么效果。既然是特性，就说明这是自身就自带的，只不过这些特性需要条件去触发。
+1 原理解析
+    a 什么是流体特性？
+        先看一下块级元素正常的特性-流体：块级元素左右有换行符，即一个块级元素在正常文档流中（非绝对，浮动），占据一行，在不设定宽度的情况下，给其水平方向内外边距边框，其实际内容缩小，在浏览器改变窗口大小时，呈现出内容随浏览器变化的特性，就像容器中的水流，有适应性，不会一成不变。
+
+        栗子1 流性布局模型：
+        html { background-color: #fff;}
+        body { margin: 0; width: 500px; border: 1px solid #beceeb; background-color: #f0f3f9; }
+        div { border: 0px solid #a0b3d6; background-color: #cad5eb; }
+        img { width: 100%; height: 190px; vertical-align: bottom; }
+        <div style="border-width: 0px 50px; padding: 0px 50px; margin: 0px 50px;" >
+            <img src="mm1.jpg" width="100%" height="190">
+        </div>
+
+        栗子2 流性布局变体模型：
+        利用水平边距使内容自适应变化但水平边距不随窗口大小改变的特性做一边固定，一边内容自适应的一块渲染区域。
+        .flow-box { width: 500px; background-color: #eee; overflow:auto; resize:horizontal; }
+        .flow-content { margin-left: 150px; }
+        <div class="flow-box">
+            <div class="flow-content"><img src="mm1.jpg" width="100%" height="190"></div>
+        </div>
+
+        栗子3 由此衍生的两栏自适应模型：
+        变体中有一部分为固定不变的，利用这一部分区域可以放不需要随宽度变化的展示区，用破坏流的水平元素来做
+        缺点：需要知道浮动或绝对定位内容的尺寸
+        <div class="flow-box">
+            <img src="mm1.jpg" width="128" style="float:left;">
+            <div class="flow-content"><img src="mm1.jpg" width="100%" height="190"></div>
+        </div>
+        <div class="flow-box">
+            <img src="mm1.jpg" width="128" style="position:absolute;">
+            <div class="flow-content"><img src="mm1.jpg" width="100%" height="190"></div>
+        </div>
+    b 元素的BFC特性与自适应布局
+        栗子4 浮动与BFC时的表现模型：
+        浮动是一个BFC，影响不了外部，外部也影响不了它，当其与正常流对象相遇，正常流中的文字会形成包裹，这是因为其浮动的初衷就是文字环绕，为了使与其相遇的盒子不受浮动带来的影响，可使其BFC化，这里的触发是溢出，其实也可以用浮动哦（不同的是用浮动因为破坏了流，自身没有宽度的情况下是内容撑开，可能内容一多就换行了，而溢出虽然在不设置宽度时用内容撑开，但是它不会换行，就就是总一行显示，高度会变化）。
+        BFC不影响浮动，浮动也影响不了BFC，这就是格式化，外部对内部不造成影响，手机格式化也是如此，不能操作。
+        好处：自适应内容自动填满浮动以为区域，无需关心浮动元素宽度，可以整站大规模应用
+        .float-left { float: left; margin-right: 20px; }
+        .follow-content { background-color: #cad5eb; letter-spacing: 5px;}
+        <div>
+            <img src="http://image.zhangxinxu.com/image/study/s/s128/mm1.jpg" height="96" width="128" class="float-left">
+            <div class="follow-content" style="overflow: hidden;">低版本IE浏览器有个hasLayout的概念，不过这玩意太老生常谈，而且也过时了，我现在无力再吐槽。总而言之，言而总之，就特性表现而言，很多时候和BFC这个概念很像。</div>
+        </div>
+    c 产生BFC解决实际问题
+        有这样的需求：两行两列布局，用了两个盒子分别装各自的两个浮动子元素，但结果是子元素排成一行四列。
+        这是由于父元素塌陷，此时可以触发BFC解决这个问题，使它们各自不受各自的影响。
+2 如何产生？
+    a float的值不为none
+    b overflow的值不为visible
+    c position的值不为relative和static
+    d display的值为table-cell，table-caption，inline-block
+3 有什么作用？
+    a 多栏布局，结合块级元素浮动，里面的元素则隔离不受影响。
