@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>01-块状格式化上下文</title>
+    <style>
+        /* 块级元素正常的特性-流体 同一个BFC渲染区域中子级之间有外边距重叠的现象*/
+        div { height: 30px; margin: 30px; background-color: aqua; }
+        .fr {float: right; background-color: aquamarine; }
+        .wrap { overflow: hidden; }
+        /* 特殊，不受溢出影响 */
+        .pa { position: absolute; background-color: bisque; }
+        .oh { overflow: hidden; background-color: blue; }
+        /* 触发BFC
+           此时这两个块盒模型都处在格式化的区域中，不会影响到其他的渲染区域，而且也不会被影响到 
+           比如说，在正常流中，浮动会使其周围的文字对它环绕，这是浮动的特性。浮动是BFC，它周围的排版对它不造成影响，同样，它也不会使周围的排版造成影响，周围的文字也还是内联属性， 还是占据同一块地方。但文字区域激活BFC后，两个BFC互不影响，文字不会形成包围环绕，因为不对浮动区造成影响了。
+           由于这个不受影响不被影响的格式化特性，可以用来消除子级的浮动带来了外部影响（塌陷，外部重叠）
+
+           ** 注意：当形成了BFC时，内部的浮动参与高度的计算
+        */
+        .box1 { overflow: hidden; }
+        .box2 { overflow: hidden; }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="box1">
+            <!-- 两个BFC -->
+            <p class="fr">我右浮动了</p>
+            <p class="oh">我溢出限制了</p>
+            <!-- 两个BFC -->
+            <p class="pa">我定位了</p>
+            <p>我处在正常文档流中</p>
+        </div>
+    </div>
+    <div class="wrap">
+        <div class="box2">我是一段文字</div>
+    </div>
+</body>
+</html>
