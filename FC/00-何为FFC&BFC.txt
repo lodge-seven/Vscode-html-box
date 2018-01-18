@@ -1,9 +1,11 @@
 FC:Formatting Contexts
 源于W3C规范，页面中的一块渲染区域，有一套规则，决定了子元素排版，与其他元素的关系，作用，这样的上下文触发多数是由于diplay，改变正常流向，使一块区域以特定的自身影响的方式排版渲染。
-
+html根元素就是一个BFC（默认overflow: auto），它建立起了BFC，内容就按照BFC来布局。
+这里都是指新建触发BFC，使某一个元素水平具有BFC，这样它内部会形成一个新的规则布局。
 
 BCF:block formatting contexts
 块状格式化上下文，目前不知道是什么效果。既然是特性，就说明这是自身就自带的，只不过这些特性需要条件去触发。
+牛逼的解释div: div是一个block-level element，于是它在渲染时会生成一个 block-level box，同时因为这个box非table box，也不是置换元素，所以按规范又是一个block container box
 1 原理解析
     a 什么是流体特性？
         先看一下块级元素正常的特性-流体：块级元素左右有换行符，即一个块级元素在正常文档流中（非绝对，浮动），占据一行，在不设定宽度的情况下，给其水平方向内外边距边框，其实际内容缩小，在浏览器改变窗口大小时，呈现出内容随浏览器变化的特性，就像容器中的水流，有适应性，不会一成不变。
@@ -56,4 +58,5 @@ BCF:block formatting contexts
     c position的值不为relative和static
     d display的值为table-cell，table-caption，inline-block
 3 有什么作用？
+    a BFC清除浮动：建立起新的BFC的元素，有不能与内部float交叠的特性，于是计算高度时会自动撑起高度起到清除浮动的效果
     a 多栏布局，结合块级元素浮动，里面的元素则隔离不受影响。
