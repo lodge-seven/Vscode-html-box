@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>翻译</title>
+    <link rel="stylesheet" type="text/css" href="fonts/feather/style.css">
+    <style>
+        html, body { overflow: hidden; font-size: 100%; margin: 0; padding: 0; height: 100%;  }
+        body { font-family: "Avenir", 'Helvetica Neue', 'Lato', 'Segoe UI', Helvetica, Arial, sans-serif; color: #CECECE; background: #222125; }
+        .container { position: relative; overflow: hidden; overflow-y: scroll; width: 100%; height: 700px; }
+        a { text-decoration: none; color: #5C5EDC; outline: none; }
+        /* 滑动区 */
+        .slider { position: relative; z-index: 200; width: 100%; margin: 0 auto; padding: 0 0 7em; text-align: center; user-select: none; }
+        /* 滑动单元 */
+        .slide { position: absolute; top: 0; visibility: hidden; width: 100%; opacity: 0; }
+        .slide-current { position: relative; z-index: 100; visibility: visible; opacity: 1; }
+        .slide-mover { position: relative; z-index: 100; }
+        .slide-title { font-size: 1.75em; font-weight: normal; margin: 0 auto; padding: 1em 0 0 0; }
+        .slide-title span { font-size: 55%; font-weight: bold; display: block; letter-spacing: 2px; text-transform: uppercase; color: #35303d; }
+        .slider-nav { position: absolute; bottom: 2em; width: 100%; text-align: center; }
+        .button { font-size: 1.31em; position: relative; display: inline-block; overflow: hidden; margin: 0 25px; padding: 0; cursor: pointer; color: #5c5edc; border: none; background: none; }
+        .button:focus { outline: none; }
+        .button:hover { color: #fff; }
+        /* 没有宽高，隐藏 */
+        .text-hidden { position: absolute; top: 200%; }
+        .zoomer { position: relative; height: 360px; transition: transition 0.5s; transition-timing-function: cubic-bezier(0.7,0,0.3,1);}
+        /* 子元素一行显示，而且整体居中 */
+        .flex-center { display: flex; align-items: center; justify-content: center; }
+        .zoomer-image { display: block; margin: 0; flex: none; transition: opacity 0.3s 0.3s; transition: transform 0.6s 0.3s; transition-timing-function: cubic-bezier(0.2,1,0.3,1);}
+        .zoomer-area, .preview { position: absolute; top: 50%; left: 50%; transform: translate3d(-50%,-50%,0); }
+        .preview { overflow: hidden; background: #18191b; }
+        .rounded { border-radius: 15px; }
+        .preview img { display: block; border-radius: inherit; transform: translate3d(100%,0,0); }
+        .zoomer-area-size-1 { width: 112px; height: 198px; }
+
+        /* 细节简介 */
+        .content { position: fixed; z-index: 1000; top: 0; left: -100%; overflow: hidden; overflow-y: scroll; width: 100%; height: 100vh; background: #18191b; transition: left 0s; }
+        .content-item { position: absolute; top: 0; display: flex; overflow: hidden; height: 0; min-height: 100%; margin: 0 auto; padding: 2em 0; pointer-events: none; opacity: 0; color: #fff; align-items: center; transition: opacity 0s; }
+        .content, .content-item { transition-delay: 0.3s; }
+        .content-item-current { transform: translate3d(-10px,0,0); }
+        .content h2 { font-size: 3.5em; font-weight: normal; margin: 0; }
+        .content h3 { font-size: 1.95em; font-weight: normal; margin: 0.25em 0 0.5em; color: #685884; }
+        .content p { font-size: 1.25em; line-height: 1.5; }
+        .content-item-img { display: block; max-width: 40vw; max-height: 80vh; transform: translate3d(-120%,0,0); flex: none; transition: transform 0.4s; transition-timing-function: cubic-bezier(0.7,1,0.8,1); }
+        .content-item-inner { padding: 0 10vw 0; opacity: 0; transform: translate3d(0, 50px, 0); transition: transform 0.6s, opacity 0.3s; transition-timing-function: cubic-bezier(0.7,1,0.8,1), ease;}
+        .content-item-current .content-item-inner { opacity: 1; transform: translate3d(0,0,0) }
+        .button-close { font-size: 1.55em; position: absolute; top: 30px; right: 30px; margin: 0; opacity: 0; color: #50505a; transition: opacity 0.3s; }
+        .content-open .button-close { opacity: 1; }
+        /* Media Queries */
+        @media screen and (max-width: 50em) {
+            .content-item {
+                display: block;
+            }
+            .content-item-img {
+                max-width: calc(100% - 80px);
+                max-height: 70vh;
+            }
+            .content h2 {
+                font-size: 3em;
+            }
+            .content-item-inner {
+                font-size: 82%;
+                padding: 4em 3em 2em;
+            }
+        }
+        
+    </style>
+    <script src="js/modernizr.custom.js"></script>
+</head>
+<body>
+    <!-- 主架（ 1导航 2 变焦滑动） -->
+    <div class="container">
+        <header>
+            <span>
+                蓝图<span></span>
+                <h1>变焦滑动</h1>
+            </span>
+            <nav>
+                <a href="#"><span>首页</span></a>
+                <a href="#"><span>回到文章</span></a>
+                <a href="#"><span>列表</span></a>
+            </nav>
+        </header>
+        <section class="slider">
+            <!-- 除了初始化单元，其余不可见，不在流 -->
+            <div class="slide slide-current">
+                <div class="slide-mover">
+                    <div class="zoomer flex-center">
+                        <!-- 手机模型 -->
+                        <img class="zoomer-image" src="images/iphone.png" alt="苹果手机">
+                        <div class="preview">
+                            <!-- 手机屏幕 -->
+                            <img src="images/iphone-content-preview.png" alt="最新手机">
+                            <div class="zoomer-area zoomer-area-size-1"></div>
+                        </div>
+                    </div>
+                </div>
+                <h2 class="slide-title"><span>类别</span>苹果6</h2>
+            </div>
+            <div class="slide">
+                <div class="slide-mover">
+                    <div class="zoomer flex-center">
+                        <!-- 手机模型 -->
+                        <img class="zoomer-image" src="images/iphone.png" alt="苹果手机">
+                        <div class="preview">
+                            <!-- 手机屏幕 -->
+                            <img src="images/iphone-content-preview.png" alt="最新手机">
+                            <div class="zoomer-area zoomer-area-size-1"></div>
+                        </div>
+                    </div>
+                </div>
+                <h2 class="slide-title"><span>类别</span>苹果8</h2>
+            </div>
+            <!-- 定位脱离文档流，若前一个元素在流中，不能抢占其位置 -->
+            <nav class="slider-nav">
+                <button class="button button-nav-prev"><i class="icon icon--arrow-left"></i><span class="text-hidden">前一页</span></button>
+                <button class="button button-zoom"><i class="icon icon--zoom"></i><span class="text-hidden">细节</span></button>
+                <button class="button button-nav-next"><i class="icon icon--arrow-right"></i><span class="text-hidden">后一页</span></button>
+            </nav>
+        </section>
+        <section class="content">
+            <div class="content-item content-item-current">
+                <img class="content-item-img" src="images/iphone-content.png" alt="苹果手表内容">
+                <div class="content-item-inner">
+                    <h2>苹果6</h2>
+                    <h3>为应用提供惊人的性能</h3>
+                    <p>一些介绍</p>
+                    <p><a href="#">了解更多</a></p>
+                </div>
+            </div>
+            <button class="button button-close"><i></i><span>关闭内容</span></button>
+        </section>
+    </div>
+    <script src="js/classie.js"></script>
+	<script src="js/dynamics.min.js"></script>
+	<script src="js/main2.js"></script>
+</body>
+</html>
