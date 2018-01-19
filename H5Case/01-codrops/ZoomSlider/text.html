@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>测试行内元素</title>
+    <style>
+        /* 不给高度时会出现基线对齐的效果，但是加高度就不会 */
+        .box1 { background: red; font-size: 600px; }
+        .box2 { background: #e68d08; line-height: 4; }
+        .box3 { background: #e68d08; height: 200px; }
+        
+    </style>
+</head>
+<body>
+    <div class="box1">
+        <img src="images/iphone-content-preview.png" alt="">
+    </div>
+    <div class="box2">
+        <img src="images/iphone-content-preview.png" alt="">
+    </div>
+    <div class="box3"><img src="images/iphone-content-preview.png" alt=""></div>
+</body>
+</html>

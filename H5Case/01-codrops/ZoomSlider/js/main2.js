@@ -8,15 +8,21 @@
  * Copyright 2015, Codrops
  * http://www.codrops.com
  */
+
+// 代码最前面的分号，可以防止多个文件压缩合并以为其他文件最后一行语句没加分号，而引起合并后语法错误。
+// 将脚本放在立刻执行的匿名函数中，利于文件合并
+// console.log(Modernizr.prefixed('transition'));
 ;(function(window) {
 
 	'use strict';
 
 	var bodyEl = document.body, 
 		docElem = window.document.documentElement,
+		// Modernizr是一个json，支持程度，由外部得到，是存在与全局的
 		support = { transitions: Modernizr.csstransitions },
 		// transition end event name
 		transEndEventNames = { 'WebkitTransition': 'webkitTransitionEnd', 'MozTransition': 'transitionend', 'OTransition': 'oTransitionEnd', 'msTransition': 'MSTransitionEnd', 'transition': 'transitionend' },
+		// 当前浏览器transition这个转移的属性是否要带有前缀
 		transEndEventName = transEndEventNames[ Modernizr.prefixed( 'transition' ) ],
 		onEndTransition = function( el, callback ) {
 			var onEndCallbackFn = function( ev ) {
@@ -59,6 +65,12 @@
 		// scale body when zooming into the items, if not Firefox (the performance in Firefox is not very good)
 		bodyScale = isFirefox ? false : 3;
 
+	// bodyEl(document.body)拿到dom对象中的body对象文本内容
+	// docElem(window.document.documentElement)拿到网页的所有文本内容
+	// support(Modernizr.csstransitions)浏览器对某的支持情况
+	// win(window.innerWidth)浏览器宽高
+	// scrollContainer整个变焦滑动
+	console.log(scrollContainer);
 	// some helper functions:
 	function scrollX() { return window.pageXOffset || docElem.scrollLeft; }
 	function scrollY() { return window.pageYOffset || docElem.scrollTop; }

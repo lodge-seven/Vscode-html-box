@@ -15,24 +15,30 @@
         .slider { position: relative; z-index: 200; width: 100%; margin: 0 auto; padding: 0 0 7em; text-align: center; user-select: none; }
         /* 滑动单元 */
         .slide { position: absolute; top: 0; visibility: hidden; width: 100%; opacity: 0; }
+        /* 当前的滑动单元 */
         .slide-current { position: relative; z-index: 100; visibility: visible; opacity: 1; }
+        /* 移动的盒子模型 */
         .slide-mover { position: relative; z-index: 100; }
+        /* em是继承的属性，继承父级的大小 */
         .slide-title { font-size: 1.75em; font-weight: normal; margin: 0 auto; padding: 1em 0 0 0; }
         .slide-title span { font-size: 55%; font-weight: bold; display: block; letter-spacing: 2px; text-transform: uppercase; color: #35303d; }
         .slider-nav { position: absolute; bottom: 2em; width: 100%; text-align: center; }
         .button { font-size: 1.31em; position: relative; display: inline-block; overflow: hidden; margin: 0 25px; padding: 0; cursor: pointer; color: #5c5edc; border: none; background: none; }
         .button:focus { outline: none; }
         .button:hover { color: #fff; }
-        /* 没有宽高，隐藏 */
+        /* 没有宽高，隐藏，点击图标 */
         .text-hidden { position: absolute; top: 200%; }
-        .zoomer { position: relative; height: 360px; transition: transition 0.5s; transition-timing-function: cubic-bezier(0.7,0,0.3,1);}
+        .zoomer { position: relative; height: 360px; transition: transition 0.5s; transition-timing-function: cubic-bezier(0.7,0,0.3,1); }
         /* 子元素一行显示，而且整体居中 */
         .flex-center { display: flex; align-items: center; justify-content: center; }
         .zoomer-image { display: block; margin: 0; flex: none; transition: opacity 0.3s 0.3s; transition: transform 0.6s 0.3s; transition-timing-function: cubic-bezier(0.2,1,0.3,1);}
+        /* 手机预览图的居中 相对于zoomer整体居中 脱离文档流 层级提升 不是完全居中还需减去自身的一半，又不想计算，用3d转化平移 */
         .zoomer-area, .preview { position: absolute; top: 50%; left: 50%; transform: translate3d(-50%,-50%,0); }
+        /* 图片不显示时显示背景 */
         .preview { overflow: hidden; background: #18191b; }
         .rounded { border-radius: 15px; }
-        .preview img { display: block; border-radius: inherit; transform: translate3d(100%,0,0); }
+        /* 变块消除行内的基线对齐，把它转化成块级 */
+        .preview img { display: block; border-radius: inherit; transform: translate3d(0,0,0); }
         .zoomer-area-size-1 { width: 112px; height: 198px; }
 
         /* 细节简介 */
@@ -50,20 +56,10 @@
         .content-open .button-close { opacity: 1; }
         /* Media Queries */
         @media screen and (max-width: 50em) {
-            .content-item {
-                display: block;
-            }
-            .content-item-img {
-                max-width: calc(100% - 80px);
-                max-height: 70vh;
-            }
-            .content h2 {
-                font-size: 3em;
-            }
-            .content-item-inner {
-                font-size: 82%;
-                padding: 4em 3em 2em;
-            }
+            .content-item { display: block; }
+            .content-item-img { max-width: calc(100% - 80px); max-height: 70vh; }
+            .content h2 { font-size: 3em; }
+            .content-item-inner { font-size: 82%; padding: 4em 3em 2em; }
         }
         
     </style>
@@ -86,32 +82,49 @@
         <section class="slider">
             <!-- 除了初始化单元，其余不可见，不在流 -->
             <div class="slide slide-current">
+                <!-- 变焦滑动的窗口 -->
                 <div class="slide-mover">
                     <div class="zoomer flex-center">
-                        <!-- 手机模型 -->
+                        <!-- 手机模型用弹性盒模型整体居中 -->
                         <img class="zoomer-image" src="images/iphone.png" alt="苹果手机">
+                        <!-- 手机预览屏幕用定位与3d转化整体居中 -->
                         <div class="preview">
                             <!-- 手机屏幕 -->
                             <img src="images/iphone-content-preview.png" alt="最新手机">
+                            <!-- 目前不知道是干什么 -->
                             <div class="zoomer-area zoomer-area-size-1"></div>
                         </div>
                     </div>
                 </div>
-                <h2 class="slide-title"><span>类别</span>苹果6</h2>
+                <h2 class="slide-title"><span>最新</span>苹果6</h2>
             </div>
             <div class="slide">
                 <div class="slide-mover">
                     <div class="zoomer flex-center">
                         <!-- 手机模型 -->
-                        <img class="zoomer-image" src="images/iphone.png" alt="苹果手机">
+                        <img class="zoomer-image" src="images/ipad.png" alt="苹果平板">
                         <div class="preview">
                             <!-- 手机屏幕 -->
-                            <img src="images/iphone-content-preview.png" alt="最新手机">
+                            <img src="images/ipad-content-preview.png" alt="苹果平板预览">
                             <div class="zoomer-area zoomer-area-size-1"></div>
                         </div>
                     </div>
                 </div>
-                <h2 class="slide-title"><span>类别</span>苹果8</h2>
+                <h2 class="slide-title"><span>最好的</span>平板</h2>
+            </div>
+            <div class="slide">
+                <div class="slide-mover">
+                    <div class="zoomer flex-center">
+                        <!-- 手机模型 -->
+                        <img class="zoomer-image" src="images/macbook.png" alt="苹果电脑">
+                        <div class="preview">
+                            <!-- 手机屏幕 -->
+                            <img src="images/macbook-content-preview.jpg" alt="苹果电脑预览">
+                            <div class="zoomer-area zoomer-area-size-1"></div>
+                        </div>
+                    </div>
+                </div>
+                <h2 class="slide-title"><span>性能级</span>电脑</h2>
             </div>
             <!-- 定位脱离文档流，若前一个元素在流中，不能抢占其位置 -->
             <nav class="slider-nav">
